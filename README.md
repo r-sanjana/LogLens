@@ -1,8 +1,24 @@
 # LogLens – Centralised Application Monitoring & Incident Management Platform
 
-\<p align="center">
-&#x20; \<strong>A full-stack application monitoring platform for centralised log management, automated incident detection and real-time email notifications.\</strong>
-\</p>
+<p align="center">
+
+**Monitor Smarter. Detect Faster. Resolve Better.**
+
+A full-stack application monitoring platform for centralised log management, automated incident detection and email notifications.
+
+</p>
+
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Message_Broker-DC382D?logo=redis&logoColor=white)
+![Celery](https://img.shields.io/badge/Celery-Task_Queue-37814A?logo=celery&logoColor=white)
+
+</p>
 
 ---
 
@@ -22,51 +38,56 @@ LogLens addresses this problem by providing a centralised monitoring system that
 
 ## Key Features
 
-- **User Authentication:** Secure registration and login using JWT authentication.
+- **User Authentication:** Secure user registration and login using JWT authentication.
 - **Application Management:** Register, update and manage monitored applications.
 - **API Key Management:** Generate, manage and revoke application-specific API keys.
-- **Log Ingestion:** Securely receive application logs through REST APIs.
+- **Secure Log Ingestion:** Receive application logs through authenticated REST APIs.
 - **Log Explorer:** View, filter and investigate application logs.
 - **Automatic Incident Detection:** Detect ERROR-level logs and automatically create or update incidents.
 - **Incident Management:** Track incident severity, occurrence counts and resolution status.
 - **Email Notifications:** Send asynchronous email alerts using Celery and Redis.
 - **Monitoring Dashboard:** View application statistics, log activity and incident status.
 - **Analytics:** Visualise log trends and application monitoring metrics.
-- **Settings:** View user profile information and manage sessions.
+- **User Settings:** View profile information and manage authentication sessions.
 
 ## Technology Stack
 
-| Category              | Technologies                    |
-| --------------------- | ------------------------------- |
-| Frontend              | React, TypeScript               |
-| Styling               | Tailwind CSS                    |
-| Backend               | Python, FastAPI                 |
-| Database              | PostgreSQL                      |
-| ORM                   | SQLAlchemy                      |
-| Database Migrations   | Alembic                         |
-| Authentication        | JWT                             |
-| API Security          | API Key Authentication, Hashing |
-| Background Processing | Celery                          |
-| Message Broker        | Redis                           |
-| Notifications         | Gmail SMTP                      |
-| Data Visualisation    | Recharts                        |
-| API Testing           | Swagger UI                      |
-| Version Control       | Git, GitHub                     |
+| Category | Technologies |
+|---|---|
+| Frontend | React, TypeScript |
+| Styling | Tailwind CSS |
+| Backend | Python, FastAPI |
+| Database | PostgreSQL |
+| ORM | SQLAlchemy |
+| Database Migrations | Alembic |
+| Authentication | JWT |
+| API Security | API Key Authentication, Hashing |
+| Background Processing | Celery |
+| Message Broker | Redis |
+| Notifications | Gmail SMTP |
+| Data Visualisation | Recharts |
+| API Testing | Swagger UI |
+| Version Control | Git, GitHub |
 
 ## System Architecture
 
 ```mermaid
 flowchart TD
     A[Monitored Applications] -->|Logs + API Key| B[FastAPI Backend]
+
     B --> C[API Key Authentication]
     C --> D[Log Processing]
+
     D --> E[(PostgreSQL)]
     D --> F[Incident Detection]
+
     F --> G[Incident Management]
     G --> H[Alert Generation]
+
     H --> I[Redis Message Broker]
     I --> J[Celery Worker]
-    J --> K[Email Notification]
+    J --> K[Email Notifications]
+
     B --> L[React Frontend]
     E --> L
     G --> L
@@ -76,15 +97,15 @@ flowchart TD
 
 ## Application Workflow
 
-1. Applications register with LogLens and receive API keys.
-2. Monitored applications send logs through the secure ingestion endpoint.
+1. Developers register applications in LogLens and generate application-specific API keys.
+2. Monitored applications send logs to LogLens through the secure ingestion endpoint.
 3. FastAPI validates the API key and processes incoming logs.
 4. Logs are stored in PostgreSQL.
 5. ERROR-level logs trigger automatic incident detection.
 6. New incidents generate email alerts.
 7. Celery processes notification tasks asynchronously using Redis.
 8. Developers monitor logs, incidents and alerts through the React dashboard.
-9. Developers investigate the underlying application issue, implement a fix and update the incident status in LogLens.
+9. Developers investigate the underlying application issue, implement a fix and update the incident status through LogLens.
 
 ## Project Structure
 
@@ -122,6 +143,7 @@ LogLens/
 ├── migrations/
 ├── alembic.ini
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -129,7 +151,9 @@ LogLens/
 
 ### Prerequisites
 
-- Python 3.11+
+Make sure the following tools are installed:
+
+- Python 3.11 or later
 - Node.js and npm
 - PostgreSQL
 - Redis
@@ -139,17 +163,19 @@ LogLens/
 
 ```bash
 git clone https://github.com/r-sanjana/LogLens.git
+
 cd LogLens
 ```
 
 ### 2. Backend Setup
 
-Create and activate a virtual environment.
+Create a Python virtual environment:
 
-**Windows PowerShell:**
+**Windows PowerShell**
 
 ```powershell
 python -m venv venv
+
 .\venv\Scripts\Activate.ps1
 ```
 
@@ -161,9 +187,9 @@ pip install -r requirements.txt
 
 ### 3. Environment Configuration
 
-Create a `.env` file in the project root.
+Create a `.env` file in the root directory.
 
-Configure the following variables using your own local credentials:
+Configure the following environment variables with your own credentials:
 
 ```env
 DATABASE_URL=postgresql://username:password@localhost:5432/loglens_db
@@ -182,11 +208,13 @@ SMTP_APP_PASSWORD=your_gmail_app_password
 SMTP_TIMEOUT_SECONDS=20
 ```
 
-**Security:** Never commit `.env` files, passwords, API keys or other credentials to GitHub.
+**Security Note:** Never upload `.env` files, passwords, API keys or other sensitive credentials to GitHub.
 
-### 4. Database Migration
+### 4. Database Setup
 
-Run the database migrations:
+Create a PostgreSQL database named `loglens_db` and configure its connection string in `.env`.
+
+Run database migrations:
 
 ```powershell
 alembic upgrade head
@@ -208,13 +236,15 @@ Interactive API documentation:
 
 ### 6. Start Redis
 
-Start your local Redis service or Redis container and verify connectivity:
+Start your Redis service or local Redis Docker container.
+
+Verify Redis connectivity:
 
 ```powershell
 docker exec loglens-redis redis-cli ping
 ```
 
-Expected response:
+Expected output:
 
 ```text
 PONG
@@ -222,7 +252,7 @@ PONG
 
 ### 7. Start the Celery Worker
 
-Open another terminal:
+Open another terminal and run:
 
 ```powershell
 celery -A app.core.celery_app:celery_app worker --loglevel=info --pool=solo
@@ -234,7 +264,9 @@ Open another terminal:
 
 ```powershell
 cd frontend
+
 npm install
+
 npm run dev
 ```
 
@@ -244,47 +276,57 @@ Frontend URL:
 
 ## API Endpoints
 
-| Module           | Endpoint                              | Method     |
-| ---------------- | ------------------------------------- | ---------- |
-| Authentication   | `/api/v1/auth/register`               | POST       |
-| Authentication   | `/api/v1/auth/login`                  | POST       |
-| Applications     | `/api/v1/applications/`               | GET / POST |
-| API Keys         | `/api/v1/applications/{id}/api-keys/` | GET / POST |
-| Log Ingestion    | `/api/v1/logs/ingest`                 | POST       |
-| Log Explorer     | `/api/v1/applications/{id}/logs/`     | GET        |
-| Incidents        | `/api/v1/incidents/`                  | GET        |
-| Incident Details | `/api/v1/incidents/{id}`              | GET        |
-| Resolve Incident | `/api/v1/incidents/{id}/resolve`      | PATCH      |
-| Alerts           | `/api/v1/alerts/`                     | GET        |
-| Dashboard        | `/api/v1/dashboard/summary`           | GET        |
-| Log Trends       | `/api/v1/dashboard/log-trends`        | GET        |
+| Module | Endpoint | Method |
+|---|---|---|
+| Authentication | `/api/v1/auth/register` | POST |
+| Authentication | `/api/v1/auth/login` | POST |
+| Applications | `/api/v1/applications/` | GET / POST |
+| API Keys | `/api/v1/applications/{id}/api-keys/` | GET / POST |
+| Log Ingestion | `/api/v1/logs/ingest` | POST |
+| Log Explorer | `/api/v1/applications/{id}/logs/` | GET |
+| Incidents | `/api/v1/incidents/` | GET |
+| Incident Details | `/api/v1/incidents/{id}` | GET |
+| Resolve Incident | `/api/v1/incidents/{id}/resolve` | PATCH |
+| Alerts | `/api/v1/alerts/` | GET |
+| Dashboard | `/api/v1/dashboard/summary` | GET |
+| Log Trends | `/api/v1/dashboard/log-trends` | GET |
 
 For complete request and response schemas, refer to the interactive Swagger documentation at `/docs`.
 
 ## Security
+
+LogLens incorporates the following security mechanisms:
 
 - JWT-based user authentication.
 - Application-specific API key authentication.
 - API keys stored as hashes rather than plaintext.
 - Application ownership validation.
 - Environment-based configuration for sensitive credentials.
+- Protected frontend routes.
 
 ## Future Enhancements
 
-- Docker-based deployment and container orchestration.
-- Advanced log search and filtering.
+- Docker-based application containerisation.
 - Real-time dashboard updates.
+- Advanced log search and filtering.
 - More detailed incident investigation and root-cause analysis.
 - Additional notification channels.
 - Application health monitoring and performance metrics.
 
 ## Current Project Status
 
-**Development:** Core backend and frontend functionality implemented and integration-tested locally.
-
-**Containerisation:** Planned.
-
-**Public Deployment:** Not yet deployed.
+| Component | Status |
+|---|---|
+| Backend Development | Completed |
+| Frontend Development | Completed |
+| Database Integration | Completed |
+| Authentication | Implemented |
+| Log Ingestion | Implemented |
+| Incident Detection | Implemented |
+| Email Notifications | Implemented |
+| Integration Testing | Core workflows verified |
+| Docker Containerisation | Planned |
+| Public Deployment | Not yet deployed |
 
 ## Author
 
@@ -296,4 +338,8 @@ GitHub: [r-sanjana](https://github.com/r-sanjana)
 
 ---
 
-\<p align="center">   \<strong>LogLens – Monitor Smarter. Detect Faster. Resolve Better.\</strong> \</p>
+<p align="center">
+
+**LogLens – Monitor Smarter. Detect Faster. Resolve Better.**
+
+</p>
