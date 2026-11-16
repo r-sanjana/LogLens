@@ -2,8 +2,6 @@
 
 <p align="center">
 
-**Monitor Smarter. Detect Faster. Resolve Better.**
-
 A full-stack application monitoring platform for centralised log management, automated incident detection and email notifications.
 
 </p>
@@ -312,31 +310,6 @@ LogLens incorporates the following security mechanisms:
 - More detailed incident investigation and root-cause analysis.
 - Additional notification channels.
 - Application health monitoring and performance metrics.
-
-## Current Project Status
-
-| Component | Status |
-|---|---|
-| Backend Development | Completed |
-| Frontend Development | Completed |
-| Database Integration | Completed |
-| Authentication | Implemented |
-| Log Ingestion | Implemented |
-| Incident Detection | Implemented |
-| Email Notifications | Implemented |
-| Integration Testing | Core workflows verified |
-| Docker Containerisation | Planned |
-| Public Deployment | Not yet deployed |
-
-## Author
-
-**Sanjana R**
-
-BE – Artificial Intelligence and Machine Learning
-
-GitHub: [r-sanjana](https://github.com/r-sanjana)
-
----
 
 <p align="center">
 
